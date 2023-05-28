@@ -1,0 +1,32 @@
+{
+    "cmake.configureSettings": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_LIB": false
+    },
+    "[cpp]": {
+        "editor.suggestSelection": "recentlyUsedByPrefix",
+        "editor.tabCompletion": "on",
+        "editor.suggest.shareSuggestSelections": true,
+        "editor.inlayHints.enabled": "offUnlessPressed",
+        "editor.suggest.showSnippets": true
+    },
+    "cmake.configureOnOpen": true,
+    "cSpell.words": [
+        "adjday",
+        "adjweek",
+        "CLDS",
+        "GPST",
+        "GREJSCI",
+        "gtime",
+        "httplib",
+        "navsys",
+        "obscodes",
+        "RTKLIB",
+        "setstr",
+        "syscodes",
+        "timeadd",
+        "timediff",
+        "timeget",
+        "timestr"
+    ]
+}
