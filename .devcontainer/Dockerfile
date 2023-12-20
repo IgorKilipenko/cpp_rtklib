@@ -17,16 +17,9 @@ RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && apt-get -y install --no-install-recommends \
         libtbb-dev \
-        libc6 \
-        libgcc1 \
-        libgcc-s1 \
-        libgssapi-krb5-2 \
-        libicu70 \
-        liblttng-ust1 \
-        libssl3 \
-        libstdc++6 \
-        libunwind8 \
-        zlib1g
+        software-properties-common
 
-# RUN sudo apt-get -y install \
-#         dotnet-runtime-8.0
+COPY ./clang_install.sh /tmp/
+
+RUN chmod +x /tmp/clang_install.sh && /tmp/clang_install.sh \
+    && rm -f /tmp/clang_install.sh
