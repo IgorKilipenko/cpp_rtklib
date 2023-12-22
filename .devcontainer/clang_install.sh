@@ -2,22 +2,24 @@
 
 set -e
 
-# wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+CLANG_VERSION=${1:-"none"}
 
-# clang-17
-# add-apt-repository "deb http://apt.llvm.org/mantic/ llvm-toolchain-mantic-17 main"
-# apt-get install clang-17 clang-tools-17 clang-17-doc libclang-common-17-dev libclang-17-dev libclang1-17 clang-format-17 python3-clang-17 clangd-17 clang-tidy-17
+if [ "${CLANG_VERSION}" = "none" ]; then
+    echo "No Clang version specified, skipping Clang reinstallation"
+    exit 0
+fi
 
-#apt-get -y purge --auto-remove clang
-cd /tmp
-wget https://apt.llvm.org/llvm.sh
-chmod +x ./llvm.sh
-./llvm.sh 17 all
+set +e
 
-update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-17 100
-update-alternatives --install /usr/bin/clang clang /usr/bin/clang-17 100
-update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-17 100
+# Remove installed Clang
+apt-get -y purge --auto-remove clang
 
+# Install LLVM
+wget https://apt.llvm.org/llvm.sh -P /tmp
+chmod +x /tmp/llvm.sh
+/tmp/llvm.sh ${CLANG_VERSION} all
+rm -f /tmp/llvm.sh
 
-#wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-#apt-get install clang-17 clang-tools-17 clang-17-doc libclang-common-17-dev libclang-17-dev libclang1-17 clang-format-17 python3-clang-17 clangd-17 clang-tidy-17
+update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100
+update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 100
+update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-${CLANG_VERSION} 100

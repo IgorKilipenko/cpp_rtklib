@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/devcontainers/cpp:1-ubuntu-22.04
 
 ARG REINSTALL_CMAKE_VERSION_FROM_SOURCE="3.22.2"
+ARG REINSTALL_CLANG_VERSION_FROM_SOURCE="17"
 
 # Optionally install the cmake for vcpkg
 COPY ./reinstall-cmake.sh /tmp/
@@ -21,5 +22,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 COPY ./clang_install.sh /tmp/
 
-RUN chmod +x /tmp/clang_install.sh && /tmp/clang_install.sh \
+RUN if [ "${REINSTALL_CLANG_VERSION_FROM_SOURCE}" != "none" ]; then \
+        chmod +x /tmp/clang_install.sh && /tmp/clang_install.sh ${REINSTALL_CLANG_VERSION_FROM_SOURCE}; \
+    fi \
     && rm -f /tmp/clang_install.sh
