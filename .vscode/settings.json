@@ -28,5 +28,7 @@
         "timediff",
         "timeget",
         "timestr"
-    ]
+    ],
+    "cmake.options.statusBarVisibility": "visible",
+    "files.autoSave": "afterDelay"
 }
