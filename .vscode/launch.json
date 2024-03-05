@@ -18,7 +18,7 @@
                     "value": "$PATH:${command:cmake.launchTargetDirectory}"
                 }
             ],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "gdb",
             "setupCommands": [
                 {
@@ -55,6 +55,17 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "(lldb) Launch",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                    "PATH": "$PATH:${command:cmake.launchTargetDirectory}"
+                },
         }
     ]
 }
